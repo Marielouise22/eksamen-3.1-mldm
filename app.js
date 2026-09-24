@@ -86,6 +86,16 @@ async function init() {
     if (!res.ok) throw new Error("Kunne ikke hente data");
     GAMES = await res.json();
 
+    // Bruger lokale, optimerede spilbilleder
+    GAMES = GAMES.map((game) => {
+      const filename = game.image.split("/").pop();
+
+      return {
+        ...game,
+        image: `images/${filename}`,
+       };
+    });
+
     hydrateSelects(GAMES);
     bindEvents();
     render();
