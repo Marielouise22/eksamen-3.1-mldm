@@ -11,7 +11,7 @@
   --ring: #d9c9bf;
   --shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   --radius: 18px;
-  --thumb-ratio: 4/3;
+  --thumb-ratio: 1 / 1;
 }
 
 * {

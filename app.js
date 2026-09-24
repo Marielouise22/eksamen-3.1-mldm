@@ -357,9 +357,14 @@ function gameCard(g) {
   return `
    <article class="card" data-id="${g.id}">
      <div class="thumb">
-       <img src="${g.image}" alt="${escapeHtml(
-    g.title
-  )}" style="object-fit:contain;">
+        <img
+          src="${g.image}"
+          alt="${escapeHtml(g.title)}"
+          width="500"
+          height="500"
+          loading="lazy"
+          decoding="async"
+        >
        <div class="badges">${badgeAvail}</div>
        <button class="fav ${favActive}" data-fav-id="${
     g.id
