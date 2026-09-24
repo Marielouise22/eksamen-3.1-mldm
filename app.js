@@ -692,10 +692,12 @@ function renderBooking() {
 
 function logo() {
   return `
-   <img class="booking-logo"
-     src="https://images.squarespace-cdn.com/content/v1/61fd2c9026a58c435d260f4c/1af90772-e642-4309-a2cb-f4161e36855e/SC-logo-2023-transparant-BG+Small+Crop.png"
-     alt="Spilcaféen">
- `;
+    <img
+      class="booking-logo"
+      src="images/logo-spilcafe.webp"
+      alt="Spilcaféen"
+    >
+  `;
 }
 
 /* STEP 1 – café */
