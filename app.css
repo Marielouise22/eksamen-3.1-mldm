@@ -2,14 +2,26 @@
   Farver, base og variabler
   ========================================================= */
 :root {
-  --cream: #f5ebdc;
-  --brown: #41120c;
-  --brown-2: #5b2a1a;
-  --text: #2b1a14;
-  --light: #fff8f0;
-  --muted: #bdaaa1;
-  --ring: #d9c9bf;
-  --shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  /* Nyt Spilcaféen-tema */
+  --cream: #fff8ef;
+
+  --brown: #661010;
+  --brown-2: #6f090c;
+
+  --text: #501012;
+  --light: #fffaf4;
+
+  --muted: #9c7470;
+
+  --ring: #e6c1b9;
+
+  --pink: #f2d2ca;
+  --pink-light: #fae9e3;
+
+  --yellow: #ffd34d;
+
+  --shadow: 0 6px 18px rgba(91, 17, 17, 0.14);
+
   --radius: 18px;
   --thumb-ratio: 1 / 1;
 }
@@ -32,7 +44,7 @@ body {
 }
 
 /* =========================================================
-  HEADER – mørk topbjælke + svævende logo
+  HEADER – mørk topbjælke 
   ========================================================= */
 .topbar {
   position: sticky;
@@ -54,8 +66,6 @@ body {
   height: 70px;
   width: 100%;
   background: var(--brown);
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
   box-shadow: var(--shadow);
 }
 
@@ -85,27 +95,27 @@ body {
 
 .header-back {
   position: absolute;
-  top: 21px;
+  top: 14px;
   left: 16px;
   z-index: 20;
 
-  font-size: 26px;
+  font-size: 22px;
   color: #fff;
 }
 
 .selected-cafe-name {
   position: absolute;
-  top: 16px;
-  left: 60px;
+  left: 12px;
+  bottom: 25px;
   z-index: 20;
 
   display: block;
-  width: 145px;
+  width: 135px;
 
   color: #fff;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.15;
   text-align: left;
   white-space: normal;
 }
@@ -230,12 +240,17 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #fff;
+  background:#fffaf7;
   border: 1px solid var(--ring);
-  box-shadow: var(--shadow);
+  box-shadow: none;
   border-radius: 14px;
   padding: 0px 14px;
   margin: 0px;
+  min-height: 44px;
+}
+
+.searchbar input::placeholder {
+  color: #8d7a77;
 }
 
 .searchbar input {
@@ -244,6 +259,7 @@ body {
   border: 0;
   outline: 0;
   background: transparent;
+  color: var(--text);
   font-size: 16px;
 }
 
@@ -251,10 +267,10 @@ body {
 
 .search-filter-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 105px;
+  grid-template-columns: minmax(0, 1fr) 88px;
   gap: 10px;
   align-items: center;
-  margin: 10px 0 12px;
+  margin: -18px 0 16px;
 }
 
 .search-icon {
@@ -263,14 +279,15 @@ body {
 }
 
 .filter-toggle {
-  height: 48px;
+  height: 44px;
   padding: 0 12px;
   border: 1px solid var(--brown);
   border-radius: 14px;
-  background: #efd1d1;
+  background: var(--pink);
   color: var(--brown);
   font: inherit;
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -392,12 +409,18 @@ body {
 }
 
 .card {
-  background: var(--brown);
+  background: 
+    linear-gradient(
+        145deg,
+        #9e1619 0%,
+        #850d10 60%,
+        #76090c 100%
+      );
   color: #fff;
   border-radius: 16px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 5px 12px rgba(83, 14, 14, 0.18);
   padding: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
 }
 
@@ -405,15 +428,16 @@ body {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  background: #00000055;
+  background: #661010;
   aspect-ratio: var(--thumb-ratio);
 }
 
 .thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  padding: 10px;
 }
 
 .fav {
@@ -500,7 +524,7 @@ body {
   /* OVER alt almindeligt indhold/booking */
   background: #efd8c6;
   backdrop-filter: saturate(1.2) blur(6px);
-  border-top: 1px solid #e2cfc3;
+  border-top: 1px solid #efd8ce;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   align-items: center;
@@ -640,14 +664,14 @@ body {
 
 
 .tabbar .home-fab {
-  width: 58px;
-  height: 58px;
+  width: 62px;
+  height: 62px;
 
   justify-self: center;
   align-self: center;
 
   position: relative;
-  top: -22px;
+  top: -38px;
   z-index: 2;
 
   padding: 0;
@@ -666,8 +690,8 @@ body {
 }
 
 .tabbar .home-fab img {
-  width: 58px;
-  height: 58px;
+  width: 62px;
+  height: auto;
   display: block;
 }
 
