@@ -45,6 +45,7 @@ body {
   overflow: visible;
 }
 
+
 /* Selve bjælken: absolut, så padding ikke skubber den */
 .topbar-bar {
   position: absolute;
@@ -497,14 +498,17 @@ body {
   bottom: 0;
   z-index: 8000;
   /* OVER alt almindeligt indhold/booking */
-  background: #efd8c6e6;
+  background: #efd8c6;
   backdrop-filter: saturate(1.2) blur(6px);
   border-top: 1px solid #e2cfc3;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  padding: 10px 8px;
+  align-items: center;
+  padding: 8px 8px 6px;
+  height: 78px;
   /* lidt større samlet højde */
 }
+
 
 /* Gør ALLE knapper ens (inkl. huset) */
 .tabbar button {
@@ -518,7 +522,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 10px 4px;
+  padding: 4px 4px;
   /* lidt større */
   font-size: 15px;
   /* større tekst */
@@ -530,15 +534,76 @@ body {
   /* rundet baggrund ved hover */
 }
 
+.tabbar[hidden] {
+  display: none;
+}
+
 /* Ikon + label */
 .tabbar button span {
-  font-size: 20px;
-  line-height: 1;
+  width: 28px;
+  height: 28px;
+  display: block;
 }
 
 .tabbar button small {
   display: block;
   font-size: 12px;
+  line-height: 1.1;
+}
+ 
+#tab-all img {
+  width: 34px;
+  height: 34px;
+}
+
+#tab-reserve img {
+  width: 31px;
+  height: 31px;
+}
+
+#filter-favourites img {
+  width: 29px;
+  height: 27px;
+}
+
+#tab-profile img {
+  width: 30px;
+  height: 30px;
+}
+
+.tabbar .tab {
+  display: grid;
+  grid-template-rows: 34px 30px;
+
+  height: 64px;
+  width: 100%;
+
+  justify-items: center;
+  align-items: start;
+  align-self: center;
+
+  gap: 4px;
+  padding: 0 4px;
+}
+
+.tabbar .tab img {
+  object-fit: contain;
+  align-self: start;
+  justify-self: center;
+}
+
+.tabbar .tab small {
+  display: block;
+
+  width: 100%;
+  height: 30px;
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.1;
+  text-align: center;
+
+  align-self: start;
 }
 
 /* Aktiv tilstand */
@@ -556,10 +621,12 @@ body {
   margin-top: 4px;
 }
 
+
+
 /* Konsistent hover/focus på ALLE knapper inkl. huset */
-.tabbar button:hover,
-.tabbar button:focus-visible,
-.tabbar button:active {
+.tabbar .tab:hover,
+.tabbar .tab:focus-visible,
+.tabbar .tab:active {
   transform: scale(1.08);
   background: rgba(0, 0, 0, 0.05);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
@@ -569,6 +636,49 @@ body {
 .tabbar button:focus-visible {
   outline: 2px solid rgba(59, 33, 24, 0.35);
   outline-offset: 2px;
+}
+
+
+.tabbar .home-fab {
+  width: 58px;
+  height: 58px;
+
+  justify-self: center;
+  align-self: center;
+
+  position: relative;
+  top: -22px;
+  z-index: 2;
+
+  padding: 0;
+  margin: 0;
+
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.tabbar .home-fab img {
+  width: 58px;
+  height: 58px;
+  display: block;
+}
+
+.tabbar .home-fab img {
+  width: 78px;
+  height: 78px;
+  display: block;
+}
+.tabbar .home-fab:focus-visible {
+  outline: 3px solid var(--brown);
+  outline-offset: 3px;
 }
 
 /* Sørg for at modaler fortsat ligger OVER tabbaren */

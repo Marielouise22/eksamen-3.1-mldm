@@ -57,6 +57,7 @@ const gamesView = document.getElementById("games-view");
 const gamesHeader = document.getElementById("games-header");
 const selectedCafeName = document.getElementById("selected-cafe-name");
 const logoHome = document.getElementById("logo-home");
+const bottomNav = document.getElementById("bottom-nav");
 
 // Booking view
 const bookingView = document.getElementById("booking-view");
@@ -221,6 +222,7 @@ function bindEvents() {
         homeView.hidden = true;
         gamesView.hidden = false;
         gamesHeader.hidden = false;
+        bottomNav.hidden = false;
 
         selectedCafeName.textContent = selectedCafe;
 
@@ -253,7 +255,7 @@ function bindEvents() {
     if (!bookingView?.hidden) closeBooking();
     SHOW_FAVS = false;
     setActiveTab(null);
-    render();
+    showHome();
   });
 
   // Tilbageknap – luk modal/booking hvis åbne
@@ -280,6 +282,7 @@ document.body.style.overflow = "";
   homeView.hidden = false;
   gamesView.hidden = true;
   gamesHeader.hidden = true;
+  bottomNav.hidden = true;
 
   updateBackIcon();
 
