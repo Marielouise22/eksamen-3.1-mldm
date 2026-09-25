@@ -78,6 +78,8 @@ let GAMES = [];
 let SHOW_FAVS = false;
 let FAVS = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
 
+let lastFocusedElement = null;
+
 const ACTIVE_FILTERS = {
   genre: new Set(),
   players: new Set(),
@@ -197,6 +199,7 @@ function bindEvents() {
     // Åbn modal
     const cardButton = e.target.closest(".card-open[data-id]");
     if (cardButton) {
+      lastFocusedElement = cardButton;
       openModalById(cardButton.dataset.id);
       }
   });
@@ -565,14 +568,21 @@ function openModalById(id) {
 
   modal.hidden = false;
   document.body.style.overflow = "hidden";
+
+  modal.querySelector(".modal-close")?.focus();
+
   updateBackIcon();
 }
 
 function closeModal() {
   if (!modal) return;
+
   modal.hidden = true;
   document.body.style.overflow = "";
   updateBackIcon();
+  
+  lastFocusedElement?.focus();
+  lastFocusedElement = null;
 }
 
 // Regler-toggle
