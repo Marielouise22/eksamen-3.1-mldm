@@ -1090,6 +1090,12 @@ body {
   gap: 10px;
 }
 
+.booking-form label {
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: -4px;
+}
+
 .booking-form input,
 .booking-form textarea {
   width: 100%;

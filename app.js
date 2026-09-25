@@ -18,15 +18,7 @@ const els = {
 
   // Skjult lager (selects/inputs – vises ikke i UI)
   genre: document.getElementById("genre-select"),
-  language: document.getElementById("language-select"),
-  difficulty: document.getElementById("difficulty-select"),
-  ratingFrom: document.getElementById("rating-from"),
-  ratingTo: document.getElementById("rating-to"),
-  playFrom: document.getElementById("playtime-from"),
-  playTo: document.getElementById("playtime-to"),
-  availableOnly: document.getElementById("available-only"),
   sort: document.getElementById("sort-select"),
-  clear: document.getElementById("clear-filters"),
 
   // Top/back
   backBtn: document.getElementById("go-back"),
@@ -127,15 +119,7 @@ async function init() {
 
 function hydrateSelects(games) {
   fillUniqueOptions(els.genre, unique(games.map((g) => g.genre)));
-  fillUniqueOptions(els.language, unique(games.map((g) => g.language)));
-  fillUniqueOptions(els.difficulty, unique(games.map((g) => g.difficulty)));
-
-  // placeholders til rating-range
-  const ratings = games.map((g) => g.rating).filter(Number.isFinite);
-  if (ratings.length) {
-    els.ratingFrom.placeholder = Math.min(...ratings).toFixed(1);
-    els.ratingTo.placeholder = Math.max(...ratings).toFixed(1);
-  }
+  
   updateFavTabCounter();
 }
 
@@ -144,13 +128,6 @@ function bindEvents() {
   [
     els.search,
     els.genre,
-    els.language,
-    els.difficulty,
-    els.ratingFrom,
-    els.ratingTo,
-    els.playFrom,
-    els.playTo,
-    els.availableOnly,
     els.sort,
     els.agePill,
     els.playersPill,
@@ -1124,12 +1101,46 @@ function renderStepConfirm() {
    </div>
 
    <form class="booking-form" id="confirm-form">
-     <input type="text"  name="name"  placeholder="Navn"   required>
-     <input type="tel"   name="phone" placeholder="Mobil"  required>
-     <input type="email" name="email" placeholder="E-mail" required>
-     <textarea name="note" rows="3" placeholder="Kommentar"></textarea>
-     <button class="booking-btn" type="submit">Bekræft booking</button>
-   </form>
+
+        <label for="booking-name">Navn</label>
+        <input
+          type="text"
+          id="booking-name"
+          name="name"
+          autocomplete="name"
+          required
+        >
+
+        <label for="booking-phone">Mobil</label>
+        <input
+          type="tel"
+          id="booking-phone"
+          name="phone"
+          autocomplete="tel"
+          required
+        >
+
+        <label for="booking-email">E-mail</label>
+        <input
+          type="email"
+          id="booking-email"
+          name="email"
+          autocomplete="email"
+          required
+        >
+
+        <label for="booking-note">Kommentar</label>
+        <textarea
+          id="booking-note"
+          name="note"
+          rows="3"
+        ></textarea>
+
+        <button class="booking-btn" type="submit">
+          Bekræft booking
+        </button>
+
+      </form>
  `;
   document.getElementById("confirm-form").addEventListener("submit", (e) => {
     e.preventDefault();
