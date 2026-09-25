@@ -41,6 +41,7 @@ const els = {
 // Modal (spildetaljer)
 const modal = document.getElementById("game-modal");
 const mImg = document.getElementById("modal-image");
+const favoriteStatus = document.getElementById("favorite-status");
 const mTitle = document.getElementById("modal-title");
 const mMeta = document.getElementById("modal-meta");
 const mDesc = document.getElementById("modal-desc");
@@ -159,12 +160,34 @@ function bindEvents() {
     if (favBtn) {
       e.stopPropagation();
       const id = String(favBtn.dataset.favId).trim();
+      const game = GAMES.find((g) => String(g.id) === id);
+      const title = game?.title || "spillet";
+
       if (FAVS.has(id)) {
-        FAVS.delete(id);
-        favBtn.classList.remove("active");
-      } else {
-        FAVS.add(id);
-        favBtn.classList.add("active");
+          FAVS.delete(id);
+
+          favBtn.classList.remove("active");
+          favBtn.setAttribute("aria-pressed", "false");
+          favBtn.setAttribute(
+            "aria-label",
+            `Tilføj ${title} til favoritter`
+          );
+
+        } else {
+          FAVS.add(id);
+
+          favBtn.classList.add("active");
+          favBtn.setAttribute("aria-pressed", "true");
+          favBtn.setAttribute(
+            "aria-label",
+            `Fjern ${title} fra favoritter`
+          );
+        }
+
+      if (favoriteStatus) {
+        favoriteStatus.textContent = FAVS.has(id)
+          ? `${title} er tilføjet til favoritter`
+          : `${title} er fjernet fra favoritter`;
       }
       localStorage.setItem(STORAGE_KEY, JSON.stringify([...FAVS]));
       updateFavTabCounter();
@@ -417,6 +440,8 @@ function render() {
 
 function gameCard(g) {
   const favActive = FAVS.has(String(g.id)) ? "active" : "";
+  const isFavourite = FAVS.has(String(g.id));
+
   const players = g.players ? `${g.players.min}–${g.players.max}` : "—";
   const rating = Number.isFinite(g.rating) ? g.rating.toFixed(1) : "—";
   const badgeAvail = g.available ? `<span class="badge">Ledig</span>` : ``;
@@ -433,9 +458,19 @@ function gameCard(g) {
           decoding="async"
         >
        <div class="badges">${badgeAvail}</div>
-       <button class="fav ${favActive}" data-fav-id="${
-    g.id
-  }" aria-label="Føj til favoritter">❤</button>
+       <button
+          class="fav ${favActive}"
+          type="button"
+          data-fav-id="${g.id}"
+          aria-pressed="${isFavourite}"
+          aria-label="${
+            isFavourite
+              ? `Fjern ${escapeHtml(g.title)} fra favoritter`
+              : `Tilføj ${escapeHtml(g.title)} til favoritter`
+          }"
+          >
+            ❤
+        </button>
      </div>
      <h3>${escapeHtml(g.title)}</h3>
      <div class="meta">
