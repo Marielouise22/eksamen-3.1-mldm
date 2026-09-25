@@ -13,17 +13,33 @@
   </head>
   <body>
 
-    <header class="topbar">
-      <!-- Øverste mørkebrune bjælke -->
+    <header class="topbar" id="games-header" hidden>
       <div class="topbar-bar"></div>
 
-     <img
-        src="images/logo-spilcafe.webp"
-        alt="Spilcaféen logo"
-        class="header-logo"
-      />
-      
-   </header>
+      <button
+        id="go-back"
+        class="icon-btn header-back"
+        type="button"
+        aria-label="Tilbage til cafévalg"
+      >
+        ←
+      </button>
+
+      <span id="selected-cafe-name" class="selected-cafe-name"></span>
+
+      <button
+        id="logo-home"
+        class="logo-home-btn"
+        type="button"
+        aria-label="Gå til forsiden"
+      >
+        <img
+          src="images/logo-spilcafe.webp"
+          alt=""
+          class="header-logo"
+        />
+      </button>
+    </header>
    
 
     <!-- BOOKING FLOW (skjult indtil man trykker "Reserver bord") -->
@@ -31,7 +47,70 @@
   <div id="booking-stage" class="booking-stage"></div>
 </section>
 
-  <main class="page">
+<section id="home-view" class="home-view">
+
+  <img
+    src="images/logo-spilcafe.webp"
+    alt="Spilcaféen"
+    class="home-logo"
+  />
+
+  <div class="home-intro">
+    <h1>Velkommen til Spilcaféen</h1>
+
+    <p>
+      Hos Spilcaféen kan du samles med venner og familie omkring brætspil,
+      hygge og gode oplevelser. Vælg den café, du besøger, og se hvilke spil
+      du kan finde.
+    </p>
+  </div>
+
+  <h2>Vælg café</h2>
+
+  <div class="cafe-grid">
+
+    <button
+      class="cafe-card"
+      type="button"
+      data-cafe="Aarhus – Fredensgade"
+    >
+      <strong>Aarhus</strong>
+      <span>Fredensgade 38, 8000</span>
+    </button>
+
+    <button
+      class="cafe-card"
+      type="button"
+      data-cafe="Aarhus – Vestergade"
+    >
+      <strong>Aarhus</strong>
+      <span>Vestergade 58A, 8000</span>
+    </button>
+
+    <button
+      class="cafe-card"
+      type="button"
+      data-cafe="Aalborg"
+    >
+      <strong>Aalborg</strong>
+      <span>Vesterbro 38, 9000</span>
+    </button>
+
+    <button
+      class="cafe-card"
+      type="button"
+      data-cafe="Kolding"
+    >
+      <strong>Kolding</strong>
+      <span>Jernbanegade 11, 6000</span>
+    </button>
+
+  </div>
+
+</section>
+
+
+  <main class="page" id="games-view" hidden>
 
     <p
       id="favorite-status"

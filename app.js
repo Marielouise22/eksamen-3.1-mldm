@@ -51,6 +51,13 @@ const mRules = document.getElementById("modal-rules");
 const rulesBtn = document.getElementById("rules-toggle");
 const rulesContent = document.getElementById("rules-content");
 
+
+const homeView = document.getElementById("home-view");
+const gamesView = document.getElementById("games-view");
+const gamesHeader = document.getElementById("games-header");
+const selectedCafeName = document.getElementById("selected-cafe-name");
+const logoHome = document.getElementById("logo-home");
+
 // Booking view
 const bookingView = document.getElementById("booking-view");
 const bookingStage = document.getElementById("booking-stage");
@@ -204,6 +211,25 @@ function bindEvents() {
       }
   });
 
+  // Vælg café på forsiden
+    document.querySelectorAll(".cafe-card").forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedCafe = button.dataset.cafe;
+
+        document.body.style.overflow = "";
+
+        homeView.hidden = true;
+        gamesView.hidden = false;
+        gamesHeader.hidden = false;
+
+        selectedCafeName.textContent = selectedCafe;
+
+        console.log("Valgt café:", selectedCafe);
+
+        updateBackIcon();
+      });
+    });
+
   // Tabbar
   els.tabAll?.addEventListener("click", () => {
     if (!bookingView?.hidden) closeBooking();
@@ -240,12 +266,25 @@ function bindEvents() {
       closeBooking();
       return;
     }
-    // ellers ingen handling
+     showHome();
   });
 
   // Dropdown-pill logik (kategori, spillere, alder, varighed + sort)
   setupNewFilters();
+  logoHome?.addEventListener("click", showHome);
 }
+
+function showHome() {
+document.body.style.overflow = "";
+
+  homeView.hidden = false;
+  gamesView.hidden = true;
+  gamesHeader.hidden = true;
+
+  updateBackIcon();
+
+}
+
 
 // Marker aktiv tab
 function setActiveTab(el) {
@@ -580,7 +619,7 @@ function closeModal() {
   modal.hidden = true;
   document.body.style.overflow = "";
   updateBackIcon();
-  
+
   lastFocusedElement?.focus();
   lastFocusedElement = null;
 }
@@ -1155,5 +1194,8 @@ function isHomeView() {
 }
 function updateBackIcon() {
   if (!els.backBtn) return;
-  els.backBtn.style.visibility = isHomeView() ? "hidden" : "visible";
+
+  els.backBtn.style.visibility =
+    homeView && !homeView.hidden ? "hidden" : "visible";
 }
+

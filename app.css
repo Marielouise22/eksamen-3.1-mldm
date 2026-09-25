@@ -38,20 +38,19 @@ body {
   position: sticky;
   top: 0;
   z-index: 3000;
+  height: 90px;
   background: var(--cream);
-  padding-top: 100px;
-  /* plads til logoet ovenfor bjælken */
-  padding-bottom: 28px;
-  /* luft under bjælken (afstand til søg) */
-  margin: 0 0 16px;
+  padding: 0;
+  margin: 0 0 12px;
   overflow: visible;
 }
 
 /* Selve bjælken: absolut, så padding ikke skubber den */
 .topbar-bar {
   position: absolute;
-  inset: 0 auto auto 0;
-  height: 68px;
+  top: 0;
+  left: 0;
+  height: 70px;
   width: 100%;
   background: var(--brown);
   border-bottom-left-radius: 16px;
@@ -81,6 +80,138 @@ body {
   line-height: 1;
   padding: 4px 6px;
   cursor: pointer;
+}
+
+.header-back {
+  position: absolute;
+  top: 21px;
+  left: 16px;
+  z-index: 20;
+
+  font-size: 26px;
+  color: #fff;
+}
+
+.selected-cafe-name {
+  position: absolute;
+  top: 16px;
+  left: 60px;
+  z-index: 20;
+
+  display: block;
+  width: 145px;
+
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: left;
+  white-space: normal;
+}
+
+.logo-home-btn {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.logo-home-btn .header-logo {
+  position: static;
+  transform: none;
+  display: block;
+  height: 96px;
+}
+  /* =========================================================
+   FORSIDE – VÆLG CAFÉ
+========================================================= */
+
+.home-view {
+  min-height: 100vh;
+  padding: 32px 20px 120px;
+  background: var(--cream);
+  text-align: center;
+}
+
+.home-logo {
+  display: block;
+  width: 150px;
+  height: auto;
+  margin: 0 auto 24px;
+}
+
+.home-intro {
+  max-width: 500px;
+  margin: 0 auto 32px;
+}
+
+.home-intro h1 {
+  margin: 0 0 12px;
+  color: var(--brown);
+  font-size: 26px;
+}
+
+.home-intro p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.home-view h2 {
+  margin: 0 0 18px;
+  color: var(--brown);
+  font-size: 22px;
+}
+
+.cafe-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cafe-card {
+  min-height: 150px;
+  padding: 18px 12px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--brown);
+  color: #fff;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+
+  font: inherit;
+  text-align: left;
+}
+
+.cafe-card strong {
+  font-size: 18px;
+}
+
+.cafe-card span {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.cafe-card:hover {
+  transform: translateY(-2px);
+}
+
+.cafe-card:focus-visible {
+  outline: 3px solid var(--brown);
+  outline-offset: 3px;
 }
 
 /* =========================================================
@@ -484,7 +615,7 @@ body {
   display: flex;
   flex-direction: column;
   max-height: 90vh;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .modal-close {
