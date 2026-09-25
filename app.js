@@ -477,7 +477,10 @@ function gameCard(g) {
           type="button"
           data-id="${g.id}"
           aria-label="Åbn detaljer om ${escapeHtml(g.title)}"
-        ></button>
+        >
+          <span class="visually-hidden">
+          Åbn detaljer om ${escapeHtml(g.title)}
+         </span></button>
 
      <div class="thumb">
         <img
