@@ -195,8 +195,10 @@ function bindEvents() {
       return;
     }
     // Åbn modal
-    const card = e.target.closest(".card[data-id]");
-    if (card) openModalById(card.dataset.id);
+    const cardButton = e.target.closest(".card-open[data-id]");
+    if (cardButton) {
+      openModalById(cardButton.dataset.id);
+      }
   });
 
   // Tabbar
@@ -447,7 +449,14 @@ function gameCard(g) {
   const badgeAvail = g.available ? `<span class="badge">Ledig</span>` : ``;
 
   return `
-   <article class="card" data-id="${g.id}">
+   <article class="card">
+        <button
+          class="card-open"
+          type="button"
+          data-id="${g.id}"
+          aria-label="Åbn detaljer om ${escapeHtml(g.title)}"
+        ></button>
+
      <div class="thumb">
         <img
           src="${g.image}"

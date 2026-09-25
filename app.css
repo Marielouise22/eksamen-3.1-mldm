@@ -266,6 +266,7 @@ body {
   box-shadow: var(--shadow);
   padding: 8px;
   border: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
 }
 
 .thumb {
@@ -294,6 +295,7 @@ body {
   padding: 6px 8px;
   font-size: 16px;
   cursor: pointer;
+  z-index: 2;
 }
 
 .fav.active {
@@ -336,6 +338,22 @@ body {
   font-size: 12px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.card-open {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.card-open:focus-visible {
+  outline: 3px solid #000;
+  outline-offset: 3px;
 }
 
 /* =========================================================
