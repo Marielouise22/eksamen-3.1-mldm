@@ -101,170 +101,149 @@ body {
   background: #fff;
   border: 1px solid var(--ring);
   box-shadow: var(--shadow);
-  border-radius: 999px;
-  padding: 8px 12px;
-  margin: 10px 0 8px;
+  border-radius: 14px;
+  padding: 0px 14px;
+  margin: 0px;
 }
 
 .searchbar input {
   flex: 1;
+  min-width: 0;
   border: 0;
   outline: 0;
   background: transparent;
   font-size: 16px;
 }
 
-/* =========================================================
-  FILTRE under søg – venstre/scroll, “Ryd filtre” til højre
-  ========================================================= */
-.filterbar {
-  display: flex;
+/* filter*/
+
+.search-filter-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 105px;
+  gap: 10px;
   align-items: center;
-  gap: 8px;
-  margin: 10px 0 14px;
+  margin: 10px 0 12px;
 }
 
-.filterbar .filters-row {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  overflow-y: visible;
-  padding-bottom: 4px;
+.search-icon {
+  font-size: 22px;
+  color: var(--brown);
 }
 
-/* Standard “pill”-stil (bruges også i dropdown-trigger-knapper) */
-.pill {
-  appearance: none;
-  background: #65301e;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 999px;
-  padding: 10px 16px;
-  /* lidt større */
+.filter-toggle {
+  height: 48px;
+  padding: 0 12px;
+  border: 1px solid var(--brown);
+  border-radius: 14px;
+  background: #efd1d1;
+  color: var(--brown);
+  font: inherit;
   font-weight: 600;
-  white-space: nowrap;
   cursor: pointer;
-  transition: transform 0.18s ease, background-color 0.18s ease,
-    box-shadow 0.18s ease;
-  will-change: transform;
-  transform-origin: center;
 }
 
-.pill:hover,
-.pill:focus-visible,
-.pill:active {
-  transform: scale(1.07);
-  background: var(--brown-2);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
-}
-
-.pill:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.6);
+.filter-toggle:focus-visible {
+  outline: 3px solid var(--brown);
   outline-offset: 2px;
 }
 
-/* Dropdown trigger-pills lys stil */
-.filter-dropdown {
-  position: relative;
-  flex-shrink: 0;
-}
-
-.filter-dropdown .pill {
-  background: var(--brown);
-  color: var(--ring);
-  border: 1px solid rgba(0, 0, 0, 0.25);
-}
-
-.filter-dropdown .pill:hover {
-  background: var(--brown-2);
-  transform: scale(1.07);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
-}
-
-/* Dropdown-menu */
-.dropdown-menu {
-  position: absolute;
-  top: 110%;
-  left: 0;
-  display: none;
-  flex-direction: column;
-  min-width: 180px;
-  background: #f5ebdc;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  z-index: 3200;
+.filter-menu {
+  border: 1px solid var(--brown);
+  border-radius: 14px;
+  margin-bottom: 16px;
   overflow: hidden;
 }
 
-.filter-dropdown.open .dropdown-menu {
+.filter-menu[hidden] {
+  display: none;
+}
+
+.filter-group {
+  border-bottom: 1px solid var(--ring);
+}
+
+.filter-group:last-child {
+  border-bottom: 0;
+}
+
+.filter-group-toggle {
+  width: 100%;
+  min-height: 48px;
   display: flex;
-}
-
-.dropdown-floating {
-  position: fixed !important;
-  z-index: 10000 !important;
-  display: flex !important;
-  top: 0;
-  left: 0;
-}
-
-/* Punkter i dropdown-menuen + hover-pop */
-.dropdown-menu button {
-  appearance: none;
-  border: 0;
-  background: transparent;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 14px;
-  text-align: left;
-  font-size: 15px;
-  color: var(--text);
+  border: 0;
+  background: #efd1d1;
+  color: var(--brown);
+  font: inherit;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.15s ease, background-color 0.15s ease;
-  display: inline-block;
-  transform-origin: center;
 }
 
-.dropdown-menu button:hover {
-  transform: scale(1.08);
-  background: var(--brown-2);
-  color: #fff;
+.filter-options {
+  background: #fff;
 }
 
-/* “Ryd filtre”-pillen på højre side */
-.clear-pill {
-  flex: 0 0 auto;
-  background: var(--brown);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  padding: 10px 16px;
-  font-weight: 800;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease,
-    box-shadow 0.2s ease;
+.filter-options[hidden] {
+  display: none;
 }
 
-.clear-pill:hover {
-  transform: scale(1.08);
-  background: var(--brown-2);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+.filter-options label {
+  min-height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  border-top: 1px solid #eee4df;
 }
 
-/* Skjul evt. gamle rækker hvis de findes i DOM’en */
-.top-actions {
-  display: none !important;
-}
-
-.more-filters {
-  display: none !important;
+.filter-options input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--brown);
 }
 
 .filters-storage[hidden] {
   display: none;
 }
+
+
+/* valgte filtre */
+
+.selected-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.selected-filters[hidden] {
+  display: none;
+}
+
+.selected-filter {
+  padding: 6px 10px;
+  border: 1px solid var(--brown);
+  border-radius: 999px;
+  background: #efd1d1;
+  color: var(--brown);
+  font: inherit;
+  cursor: pointer;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 
 /* =========================================================
   KORT / SPIL-KORT

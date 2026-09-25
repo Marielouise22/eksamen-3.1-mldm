@@ -32,74 +32,239 @@
 </section>
 
   <main class="page">
-    <!-- Søg som i designet -->
-    <div class="searchbar">
-      <input type="text" id="search-input" placeholder="Søg" />
-      <button class="icon-btn" aria-label="Søg">🔍</button>
-    </div>
-  
-    <!-- 👇 NY placering af filtre + Ryd filtre -->
-    <div class="filterbar">
-      <div class="filters-row">
-        <!-- alle dine filter-dropdowns flyttes herned -->
-        <div class="filter-dropdown">
-          <button class="pill">Kategori ⌄</button>
-          <div class="dropdown-menu">
-            <button data-filter="genre" data-value="Familie">Familie</button>
-            <button data-filter="genre" data-value="Kortspil">Kortspil</button>
-            <button data-filter="genre" data-value="Strategi">Strategi</button>
-            <button data-filter="genre" data-value="Ordspil">Ordspil</button>
-            <button data-filter="genre" data-value="Party">Party</button>
-            <button data-filter="genre" data-value="Andre">Andre</button>
-            <button data-filter="genre" data-value="all">Alle kategorier</button>
-          </div>
-        </div>
-  
-        <div class="filter-dropdown">
-          <button class="pill">Spillere ⌄</button>
-          <div class="dropdown-menu">
-            <button data-filter="players" data-value="1-2">1–2</button>
-            <button data-filter="players" data-value="2-4">2–4</button>
-            <button data-filter="players" data-value="4-6">4–6</button>
-            <button data-filter="players" data-value="6-10">6–10</button>
-            <button data-filter="players" data-value="10+">10+</button>
-            <button data-filter="players" data-value="all">Alle</button>
-          </div>
-        </div>
-  
-        <div class="filter-dropdown">
-          <button class="pill">Alder ⌄</button>
-          <div class="dropdown-menu">
-            <button data-filter="age" data-value="3">3+</button>
-            <button data-filter="age" data-value="6">6+</button>
-            <button data-filter="age" data-value="8">8+</button>
-            <button data-filter="age" data-value="10">10+</button>
-            <button data-filter="age" data-value="12">12+</button>
-            <button data-filter="age" data-value="15">15+</button>
-            <button data-filter="age" data-value="18">18+</button>
-            <button data-filter="age" data-value="all">Alle</button>
-          </div>
-        </div>
-  
-        <div class="filter-dropdown">
-          <button class="pill">Varighed ⌄</button>
-          <div class="dropdown-menu">
-            <button data-filter="duration" data-value="0-15">≤ 15 min</button>
-            <button data-filter="duration" data-value="15-30">15–30 min</button>
-            <button data-filter="duration" data-value="30-60">30–60 min</button>
-            <button data-filter="duration" data-value="60-120">60–120 min</button>
-            <button data-filter="duration" data-value="120+">120+ min</button>
-            <button data-filter="duration" data-value="all">Alle</button>
-          </div>
-        </div>
-  
-        <div class="filter-dropdown"><button class="pill" data-sort="rating">Populære</button></div>
-        <div class="filter-dropdown"><button class="pill" data-sort="title">A–Å</button></div>
-        <div class="filter-dropdown"><button class="pill" data-sort="none">Nyeste</button></div>
+    <!-- Søgning og filter -->
+    <div class="search-filter-row">
+
+      <div class="searchbar">
+        <label for="search-input" class="visually-hidden">
+         Søg efter spil
+        </label>
+
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Søg"
+        />
+
+        <span class="search-icon" aria-hidden="true">⌕</span>
       </div>
-  
-      <!-- højre side -->
-      <button class="clear-pill" id="clear-filters-pill" type="button">Ryd filtre</button>
+
+      <button
+        id="filter-toggle"
+        class="filter-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="filter-menu"
+      >
+        Filtrer
+        <span aria-hidden="true">⌄</span>
+      </button>
+
+    </div>
+
+
+    <!-- Valgte filtre kommer til at blive vist her -->
+    <div
+      id="selected-filters"
+      class="selected-filters"
+      aria-live="polite"
+      hidden
+    ></div>
+
+
+    <!-- Hele filtermenuen -->
+    <div id="filter-menu" class="filter-menu" hidden>
+
+      <!-- SPILLERE -->
+      <div class="filter-group">
+
+        <button
+          class="filter-group-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="players-options"
+        >
+          Spillere
+          <span aria-hidden="true">⌄</span>
+        </button>
+
+        <div id="players-options" class="filter-options" hidden>
+
+          <label>
+            <span>1–2</span>
+            <input type="checkbox" data-filter="players" value="1-2">
+          </label>
+
+          <label>
+            <span>2–4</span>
+            <input type="checkbox" data-filter="players" value="2-4">
+          </label>
+
+          <label>
+            <span>4–6</span>
+            <input type="checkbox" data-filter="players" value="4-6">
+          </label>
+
+          <label>
+            <span>6–10</span>
+            <input type="checkbox" data-filter="players" value="6-10">
+          </label>
+
+          <label>
+            <span>10+</span>
+            <input type="checkbox" data-filter="players" value="10+">
+          </label>
+
+        </div>
+        </div>
+
+
+      <!-- ALDER -->
+      <div class="filter-group">
+
+        <button
+          class="filter-group-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="age-options"
+        >
+          Alder
+          <span aria-hidden="true">⌄</span>
+        </button>
+
+        <div id="age-options" class="filter-options" hidden>
+
+          <label>
+            <span>3+</span>
+            <input type="checkbox" data-filter="age" value="3">
+          </label>
+
+          <label>
+            <span>6+</span>
+            <input type="checkbox" data-filter="age" value="6">
+          </label>
+
+          <label>
+            <span>8+</span>
+            <input type="checkbox" data-filter="age" value="8">
+          </label>
+
+          <label>
+            <span>10+</span>
+            <input type="checkbox" data-filter="age" value="10">
+          </label>
+
+          <label>
+            <span>12+</span>
+            <input type="checkbox" data-filter="age" value="12">
+          </label>
+
+          <label>
+            <span>15+</span>
+            <input type="checkbox" data-filter="age" value="15">
+          </label>
+
+          <label>
+            <span>18+</span>
+            <input type="checkbox" data-filter="age" value="18">
+          </label>
+
+        </div>
+      </div>
+
+
+      <!-- KATEGORI -->
+      <div class="filter-group">
+
+        <button
+          class="filter-group-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="category-options"
+        >
+          Kategori
+          <span aria-hidden="true">⌄</span>
+        </button>
+
+        <div id="category-options" class="filter-options" hidden>
+
+          <label>
+            <span>Familie</span>
+            <input type="checkbox" data-filter="genre" value="Familie">
+          </label>
+
+          <label>
+            <span>Kortspil</span>
+            <input type="checkbox" data-filter="genre" value="Kortspil">
+          </label>
+
+          <label>
+            <span>Strategi</span>
+            <input type="checkbox" data-filter="genre" value="Strategi">
+          </label>
+
+          <label>
+            <span>Ordspil</span>
+            <input type="checkbox" data-filter="genre" value="Ordspil">
+          </label>
+
+          <label>
+            <span>Party</span>
+            <input type="checkbox" data-filter="genre" value="Party">
+          </label>
+
+          <label>
+            <span>Andre</span>
+            <input type="checkbox" data-filter="genre" value="Andre">
+          </label>
+
+        </div>
+      </div>
+
+
+      <!-- VARIGHED -->
+      <div class="filter-group">
+
+        <button
+          class="filter-group-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="duration-options"
+        >
+          Varighed
+          <span aria-hidden="true">⌄</span>
+        </button>
+
+        <div id="duration-options" class="filter-options" hidden>
+
+          <label>
+            <span>≤ 15 min</span>
+            <input type="checkbox" data-filter="duration" value="0-15">
+          </label>
+
+          <label>
+            <span>15–30 min</span>
+            <input type="checkbox" data-filter="duration" value="15-30">
+          </label>
+
+          <label>
+            <span>30–60 min</span>
+            <input type="checkbox" data-filter="duration" value="30-60">
+          </label>
+
+          <label>
+            <span>60–120 min</span>
+            <input type="checkbox" data-filter="duration" value="60-120">
+          </label>
+
+          <label>
+            <span>120+ min</span>
+            <input type="checkbox" data-filter="duration" value="120+">
+          </label>
+
+        </div>
+      </div>
+
     </div>
   
     

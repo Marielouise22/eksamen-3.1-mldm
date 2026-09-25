@@ -77,6 +77,13 @@ let GAMES = [];
 let SHOW_FAVS = false;
 let FAVS = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
 
+const ACTIVE_FILTERS = {
+  genre: new Set(),
+  players: new Set(),
+  age: new Set(),
+  duration: new Set(),
+};
+
 // INIT
 
 init();
@@ -209,7 +216,7 @@ function bindEvents() {
   });
 
   // Dropdown-pill logik (kategori, spillere, alder, varighed + sort)
-  setupDropdownFilters();
+  setupNewFilters();
 }
 
 // Marker aktiv tab
@@ -223,28 +230,32 @@ function setActiveTab(el) {
 // RYD FILTRE
 
 function clearAllFilters() {
-  if (els.search) els.search.value = "";
 
-  // Pills
-  els.agePill.value = "all";
-  els.playersPill.value = "all";
-  els.durationPill.value = "all";
+  // Ryd søgning
+  if (els.search) {
+    els.search.value = "";
+  }
 
-  // Skjulte selects/inputs
-  ["genre", "language", "difficulty"].forEach((k) => {
-    const s = document.getElementById(`${k}-select`);
-    if (s) s.value = "all";
+  // Ryd aktive filtre
+  Object.values(ACTIVE_FILTERS).forEach((filterSet) => {
+    filterSet.clear();
   });
-  ["rating-from", "rating-to", "playtime-from", "playtime-to"].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) el.value = "";
-  });
-  if (els.availableOnly) els.availableOnly.checked = false;
-  if (els.sort) els.sort.value = "none";
 
-  // Vis alle igen (fjern fav-filter)
+  // Fjern markering fra checkboxe
+  document
+    .querySelectorAll('#filter-menu input[type="checkbox"]')
+    .forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+
+  // Fjern favoritvisning
   SHOW_FAVS = false;
   els.tabFav?.classList.remove("active");
+
+  // Nulstil sortering
+  if (els.sort) {
+    els.sort.value = "none";
+  }
 
   render();
 }
@@ -254,26 +265,20 @@ function clearAllFilters() {
 const valueOrAll = (el) => (el && el.value ? el.value : "all");
 
 function getFilters() {
-  const num = (v) => (v === "" || v == null ? null : Number(v));
   return {
     query: (els.search?.value || "").trim().toLowerCase(),
-    genre: valueOrAll(els.genre),
-    language: valueOrAll(els.language),
-    difficulty: valueOrAll(els.difficulty),
-    ratingFrom: num(els.ratingFrom?.value),
-    ratingTo: num(els.ratingTo?.value),
-    playFrom: num(els.playFrom?.value),
-    playTo: num(els.playTo?.value),
-    availableOnly: !!els.availableOnly?.checked,
+    genre: ACTIVE_FILTERS.genre,
+    players: ACTIVE_FILTERS.players,
+    age: ACTIVE_FILTERS.age,
+    duration: ACTIVE_FILTERS.duration,
     sort: valueOrAll(els.sort),
-    agePill: valueOrAll(els.agePill),
-    playersPill: valueOrAll(els.playersPill),
-    durationPill: valueOrAll(els.durationPill),
   };
 }
 
 function applyFilters(arr, f) {
   return arr.filter((g) => {
+
+    // SØGNING
     const text = (
       g.title +
       " " +
@@ -281,37 +286,96 @@ function applyFilters(arr, f) {
       " " +
       (g.rules || "")
     ).toLowerCase();
-    if (f.query && !text.includes(f.query)) return false;
 
-    if (f.genre !== "all" && g.genre !== f.genre) return false;
-    if (f.language !== "all" && g.language !== f.language) return false;
-    if (f.difficulty !== "all" && g.difficulty !== f.difficulty) return false;
-    if (f.ratingFrom != null && g.rating < f.ratingFrom) return false;
-    if (f.ratingTo != null && g.rating > f.ratingTo) return false;
-    if (f.playFrom != null && g.playtime < f.playFrom) return false;
-    if (f.playTo != null && g.playtime > f.playTo) return false;
-    if (f.availableOnly && !g.available) return false;
-
-    if (f.agePill !== "all" && g.age < Number(f.agePill)) return false;
-
-    if (f.playersPill !== "all") {
-      const [minStr, maxStr] = f.playersPill.split("-");
-      const wantMin = Number(minStr);
-      const wantMax = maxStr?.includes("+") ? 99 : Number(maxStr);
-      const gMin = g.players?.min ?? 1;
-      const gMax = g.players?.max ?? 99;
-      if (gMax < wantMin || gMin > wantMax) return false;
+    if (f.query && !text.includes(f.query)) {
+      return false;
     }
 
-    if (f.durationPill !== "all") {
-      const [a, b] = f.durationPill.split("-");
-      const from = Number(a);
-      const to = b?.includes("+") ? 10000 : Number(b);
-      if (g.playtime < from || g.playtime > to) return false;
+
+    // KATEGORI
+    if (
+      f.genre.size > 0 &&
+      !f.genre.has(g.genre)
+    ) {
+      return false;
     }
 
-    if (SHOW_FAVS && !FAVS.has(String(g.id))) return false;
+
+    // SPILLERE
+    if (
+      f.players.size > 0 &&
+      !matchesPlayerFilter(g, f.players)
+    ) {
+      return false;
+    }
+
+
+    // ALDER
+    if (f.age.size > 0 && !matchesAgeFilter(g, f.age)) {
+      return false;
+    }
+
+
+    // VARIGHED
+    if (
+      f.duration.size > 0 &&
+      !matchesDurationFilter(g, f.duration)
+    ) {
+      return false;
+    }
+
+
+    // FAVORITTER
+    if (
+      SHOW_FAVS &&
+      !FAVS.has(String(g.id))
+    ) {
+      return false;
+    }
+
     return true;
+  });
+}
+
+function matchesAgeFilter(game, selectedAges) {
+  const gameAge = Number(game.age);
+
+  return [...selectedAges].some((age) => {
+    return gameAge >= Number(age);
+  });
+}
+
+function matchesPlayerFilter(game, selectedPlayers) {
+  const gameMin = game.players?.min ?? 1;
+  const gameMax = game.players?.max ?? 99;
+
+  return [...selectedPlayers].some((range) => {
+
+    if (range.endsWith("+")) {
+      const minimum = parseInt(range);
+      return gameMax >= minimum;
+    }
+
+    const [min, max] = range.split("-").map(Number);
+
+    return gameMax >= min && gameMin <= max;
+  });
+}
+
+
+function matchesDurationFilter(game, selectedDurations) {
+  const playtime = Number(game.playtime);
+
+  return [...selectedDurations].some((range) => {
+
+    if (range.endsWith("+")) {
+      const minimum = parseInt(range);
+      return playtime >= minimum;
+    }
+
+    const [min, max] = range.split("-").map(Number);
+
+    return playtime >= min && playtime <= max;
   });
 }
 
@@ -338,12 +402,15 @@ function render() {
   const filtered = applyFilters(GAMES, f);
   const sorted = applySort(filtered, f.sort);
 
+  renderSelectedFilters();
+
   if (!sorted.length) {
     els.list.innerHTML = `<p style="color:#7b5647">Ingen spil matcher dine filtre.</p>`;
     updateBackIcon();
     return;
   }
   els.list.innerHTML = sorted.map(gameCard).join("");
+  renderSelectedFilters();
   updateFavTabCounter();
   updateBackIcon();
 }
@@ -483,130 +550,197 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && modal && modal.hidden === false) closeModal();
 });
 
-// TOP-FILTERS (dropdown-pills)
 
-function setupDropdownFilters() {
-  const row = document.querySelector(".filters-row");
-  let openDD = null;
-  let floatingMenu = null;
 
-  function setFilter(type, rawValue) {
-    if (type === "genre") {
-      const sel = document.getElementById("genre-select");
-      if (!sel) return false;
-      if (rawValue === "all") {
-        sel.value = "all";
-        return true;
-      }
-      const opts = Array.from(sel.options);
-      const lower = String(rawValue).toLowerCase();
-      let match =
-        opts.find((o) => o.value.toLowerCase() === lower) ||
-        opts.find((o) => o.textContent.toLowerCase() === lower) ||
-        opts.find((o) => o.textContent.toLowerCase().includes(lower));
-      sel.value = match ? match.value : "all";
-      return true;
+function setupNewFilters() {
+  const filterToggle = document.getElementById("filter-toggle");
+  const filterMenu = document.getElementById("filter-menu");
+  const selectedFilters = document.getElementById("selected-filters");
+
+
+  // ÅBN / LUK HELE FILTERMENUEN
+  filterToggle?.addEventListener("click", () => {
+    const isOpen = !filterMenu.hidden;
+
+    filterMenu.hidden = isOpen;
+
+    filterToggle.setAttribute(
+      "aria-expanded",
+      isOpen ? "false" : "true"
+    );
+
+    const arrow = filterToggle.querySelector("span");
+
+    if (arrow) {
+      arrow.textContent = isOpen ? "⌄" : "⌃";
     }
-    if (type === "players") {
-      (els.playersPill || ensureHiddenPill("players-pill")).value = rawValue;
-      return true;
-    }
-    if (type === "age") {
-      (els.agePill || ensureHiddenPill("age-pill")).value = rawValue;
-      return true;
-    }
-    if (type === "duration") {
-      (els.durationPill || ensureHiddenPill("duration-pill")).value = rawValue;
-      return true;
-    }
-    return false;
-  }
-
-  function openDropdown(dd, pill) {
-    closeDropdown();
-    dd.classList.add("open");
-    const menu = dd.querySelector(".dropdown-menu");
-    if (!menu) return;
-
-    const r = pill.getBoundingClientRect();
-    const w = Math.max(180, r.width);
-
-    floatingMenu = menu;
-    floatingMenu.classList.add("dropdown-floating");
-    floatingMenu.style.minWidth = w + "px";
-    floatingMenu.style.left = r.left + "px";
-    floatingMenu.style.top = r.bottom + 6 + "px";
-
-    dd.__menuPlaceholder = document.createComment("menu-placeholder");
-    menu.parentNode.insertBefore(dd.__menuPlaceholder, menu);
-    document.body.appendChild(floatingMenu);
-
-    openDD = dd;
-
-    window.addEventListener("scroll", closeDropdown, {
-      passive: true,
-      once: true,
-    });
-    window.addEventListener("resize", closeDropdown, {
-      passive: true,
-      once: true,
-    });
-  }
-
-  function closeDropdown() {
-    if (!openDD) return;
-    if (floatingMenu && openDD.__menuPlaceholder) {
-      openDD.__menuPlaceholder.parentNode.insertBefore(
-        floatingMenu,
-        openDD.__menuPlaceholder
-      );
-      openDD.__menuPlaceholder.remove();
-      floatingMenu.classList.remove("dropdown-floating");
-      floatingMenu.style.left = "";
-      floatingMenu.style.top = "";
-      floatingMenu.style.minWidth = "";
-    }
-    floatingMenu = null;
-    openDD.classList.remove("open");
-    openDD = null;
-  }
-
-  // Åbn/luk dropdown (ikke sort)
-  row?.addEventListener("pointerdown", (e) => {
-    const pill = e.target.closest(".filter-dropdown .pill:not([data-sort])");
-    if (!pill) return;
-    e.preventDefault();
-    e.stopPropagation();
-    const dd = pill.closest(".filter-dropdown");
-    if (openDD === dd) closeDropdown();
-    else openDropdown(dd, pill);
   });
 
-  // Sorteringsknapper
-  row?.addEventListener("click", (e) => {
-    const sorter = e.target.closest(".filter-dropdown .pill[data-sort]");
-    if (!sorter) return;
-    if (els.sort) els.sort.value = sorter.dataset.sort || "none";
+
+  // ÅBN / LUK DE ENKELTE FILTERGRUPPER
+  document
+    .querySelectorAll(".filter-group-toggle")
+    .forEach((button) => {
+
+      button.addEventListener("click", () => {
+
+        const optionsId = button.getAttribute("aria-controls");
+        const options = document.getElementById(optionsId);
+
+        if (!options) return;
+
+        const isOpen = !options.hidden;
+
+        options.hidden = isOpen;
+
+        button.setAttribute(
+          "aria-expanded",
+          isOpen ? "false" : "true"
+        );
+
+        const arrow = button.querySelector("span");
+
+        if (arrow) {
+          arrow.textContent = isOpen ? "⌄" : "⌃";
+        }
+      });
+    });
+
+
+  // NÅR EN CHECKBOX VÆLGES
+  filterMenu?.addEventListener("change", (event) => {
+
+    const checkbox = event.target.closest(
+      'input[type="checkbox"][data-filter]'
+    );
+
+    if (!checkbox) return;
+
+    const filterType = checkbox.dataset.filter;
+    const value = checkbox.value;
+
+    if (!ACTIVE_FILTERS[filterType]) return;
+
+
+    if (checkbox.checked) {
+      ACTIVE_FILTERS[filterType].add(value);
+    } else {
+      ACTIVE_FILTERS[filterType].delete(value);
+    }
+
     render();
   });
 
-  // Klik på menupunkt
-  document.addEventListener("click", (e) => {
-    const item = e.target.closest(".dropdown-menu button");
-    if (!item) return;
-    const ok = setFilter(item.dataset.filter, item.dataset.value);
-    if (ok) render();
-    closeDropdown();
-    e.stopPropagation();
-  });
 
-  // Klik udenfor lukker
-  document.addEventListener("pointerdown", (e) => {
-    if (!openDD) return;
-    const inside = e.target.closest(".filter-dropdown");
-    const inMenu = e.target.closest(".dropdown-menu");
-    if (!inside && !inMenu) closeDropdown();
+  // FJERN ET VALGT FILTER MED ×
+  selectedFilters?.addEventListener("click", (event) => {
+
+    const button = event.target.closest(
+      ".selected-filter"
+    );
+
+    if (!button) return;
+
+    const filterType = button.dataset.filter;
+    const value = button.dataset.value;
+
+    if (!ACTIVE_FILTERS[filterType]) return;
+
+    ACTIVE_FILTERS[filterType].delete(value);
+
+
+    // Fjern også checkboxens markering
+    const checkbox = document.querySelector(
+      `input[data-filter="${filterType}"][value="${value}"]`
+    );
+
+    if (checkbox) {
+      checkbox.checked = false;
+    }
+
+    render();
   });
+}
+
+function renderSelectedFilters() {
+  const container = document.getElementById("selected-filters");
+
+  if (!container) return;
+
+  const filters = [];
+
+  Object.entries(ACTIVE_FILTERS).forEach(
+    ([filterType, values]) => {
+
+      values.forEach((value) => {
+
+        filters.push({
+          filterType,
+          value,
+          label: getFilterLabel(filterType, value),
+        });
+
+      });
+    }
+  );
+
+
+  if (filters.length === 0) {
+    container.hidden = true;
+    container.innerHTML = "";
+    return;
+  }
+
+
+  container.hidden = false;
+
+  container.innerHTML = filters
+    .map(
+      (filter) => `
+        <button
+          type="button"
+          class="selected-filter"
+          data-filter="${filter.filterType}"
+          data-value="${filter.value}"
+          aria-label="Fjern filter ${escapeHtml(filter.label)}"
+        >
+          ${escapeHtml(filter.label)}
+          <span aria-hidden="true">×</span>
+        </button>
+      `
+    )
+    .join("");
+}
+
+
+function getFilterLabel(type, value) {
+
+  if (type === "genre") {
+    return value;
+  }
+
+  if (type === "players") {
+    return `${value.replace("-", "–")} spillere`;
+  }
+
+  if (type === "age") {
+    return `${value}+ år`;
+  }
+
+  if (type === "duration") {
+
+    const durationLabels = {
+      "0-15": "≤ 15 min",
+      "15-30": "15–30 min",
+      "30-60": "30–60 min",
+      "60-120": "60–120 min",
+      "120+": "120+ min",
+    };
+
+    return durationLabels[value] || value;
+  }
+
+  return value;
 }
 
 // BOOKING FLOW (1 → 7) – uændret adfærd
