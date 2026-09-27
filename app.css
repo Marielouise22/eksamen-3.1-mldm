@@ -184,15 +184,16 @@ body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .cafe-card {
-  min-height: 150px;
-  padding: 18px 12px;
+  min-height: 0px;
+  padding: 10px;
   border: 0;
-  border-radius: 16px;
+  border-radius: 20px;
   background: var(--brown);
   color: #fff;
   box-shadow: var(--shadow);
@@ -205,15 +206,33 @@ body {
 
   font: inherit;
   text-align: left;
+  height: auto;
+  align-self: start;
+  overflow: hidden;
+}
+
+.cafe-card img {
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+  display: block;
+  border-radius: 15px;
+  margin-bottom: 12px;
 }
 
 .cafe-card strong {
-  font-size: 18px;
+  font-size: 20px;
+  display: block;
+  line-height: 1.2;
+  margin: 0 4px 6px;
 }
 
 .cafe-card span {
-  font-size: 13px;
+  font-size: 15px;
   opacity: 0.9;
+  display: block;
+  line-height: 1.3;
+  margin: 0 4px 6px;
 }
 
 .cafe-card:hover {
@@ -223,6 +242,65 @@ body {
 .cafe-card:focus-visible {
   outline: 3px solid var(--brown);
   outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .home-view {
+    padding: 18px 20px 20px;
+  }
+
+  .home-logo {
+    width: 130px;
+    margin: 0 auto 18px;
+  }
+
+  .home-intro {
+    margin-bottom: 18px;
+  }
+
+  .home-intro h1 {
+    font-size: 25px;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .home-intro p {
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 0 auto;
+  }
+
+  .home-view > h2 {
+    font-size: 23px;
+    margin: 20px 0 14px;
+  }
+
+  .cafe-grid {
+    gap: 10px;
+  }
+
+  .cafe-card {
+    padding: 7px;
+    border-radius: 16px;
+  }
+
+  .cafe-card img {
+    height: 100px;
+    border-radius: 12px;
+    margin-bottom: 7px;
+  }
+
+  .cafe-card strong {
+    font-size: 17px;
+    line-height: 1.1;
+    margin: 0 3px 4px;
+  }
+
+  .cafe-card span {
+    font-size: 12px;
+    line-height: 1.2;
+    margin: 0 3px 5px;
+  }
 }
 
 /* =========================================================
@@ -933,6 +1011,52 @@ body {
   border-radius: 10px;
   display: block;
 }
+@media (max-width: 600px) {
+  .booking-stage {
+    padding: 20px 16px 100px;
+  }
+
+  .booking-logo {
+    width: 65px;
+    height: auto;
+    margin: 0 auto 10px;
+  }
+
+  .booking-title {
+    font-size: 26px;
+    margin: 8px 0 18px;
+  }
+
+  .booking-cafes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .booking-cafes .booking-card {
+    height: auto;
+    min-height: 0;
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .booking-cafes .booking-card img {
+    height: 105px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+
+  .booking-cafes .booking-card h4 {
+    font-size: 17px;
+    line-height: 1.15;
+    margin: 0 3px 5px;
+  }
+
+  .booking-cafes .booking-card p {
+    font-size: 13px;
+    line-height: 1.2;
+    margin: 0 3px 5px;
+  }
+}
 
 @media (min-width: 900px) {
   .booking-cafes {
@@ -1145,14 +1269,4 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-/* Respektér brugere der ikke vil have animationer */
-@media (prefers-reduced-motion: reduce) {
-  .pill,
-  .clear-pill,
-  .dropdown-menu button,
-  .tabbar button {
-    transition: none !important;
-  }
 }

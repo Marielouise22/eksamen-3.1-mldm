@@ -832,28 +832,28 @@ function getFilterLabel(type, value) {
 // BOOKING FLOW (1 → 7) – uændret adfærd
 const CAFES = [
   {
-    id: "aarhus-v",
-    name: "Aarhus V",
-    address: "Vesterbrogade 36, 8000",
-    img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=800&auto=format&fit=crop",
+    id: "aarhus-C",
+    name: "Aarhus C",
+    address: "Fredensgade 36, 8000",
+    img:  "images/fredensgade.webp",
   },
   {
     id: "aarhus-c",
     name: "Aarhus C",
-    address: "Søndergade 98, 8000",
-    img: "https://images.unsplash.com/photo-1481833761820-0509d3217039?q=80&w=800&auto=format&fit=crop",
+    address: "Vestergade 28, 8000",
+    img: "images/vestergade.webp",
   },
   {
     id: "aalborg",
     name: "Aalborg",
     address: "Nytorv 21, 9000",
-    img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop",
+    img: "images/aalborg.webp",
   },
   {
-    id: "odense",
-    name: "Odense",
+    id: "kolding",
+    name: "Kolding",
     address: "Kongensgade 11, 5000",
-    img: "https://images.unsplash.com/photo-1498654200943-1088dd4438ae?q=80&w=800&auto=format&fit=crop",
+    img: "images/kolding.webp",
   },
 ];
 
