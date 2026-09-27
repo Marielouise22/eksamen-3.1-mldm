@@ -34,332 +34,334 @@
   <div id="booking-stage" class="booking-stage"></div>
 </section>
 
-<section id="home-view" class="home-view">
 
-  <img
-    src="images/logo-spilcafe.webp"
-    alt="Spilcaféen"
-    class="home-logo"
-  />
+<main> 
+    <section id="home-view" class="home-view">
 
-  <div class="home-intro">
-    <h1>Velkommen til Spilcaféen</h1>
+      <img
+        src="images/logo-spilcafe.webp"
+        alt="Spilcaféen"
+        class="home-logo"
+      />
 
-    <p>
-      Hos Spilcaféen kan du samles med venner og familie omkring brætspil,
-      hygge og gode oplevelser. Vælg den café, du besøger, og se hvilke spil
-      du kan finde.
-    </p>
-  </div>
+      <div class="home-intro">
+        <h1>Velkommen til Spilcaféen</h1>
 
-  <h2>Vælg café</h2>
-
-  <div class="cafe-grid">
-
-    <button
-      class="cafe-card"
-      type="button"
-      data-cafe="Aarhus – Fredensgade"
-    >
-      <strong>Aarhus</strong>
-      <span>Fredensgade 38, 8000</span>
-    </button>
-
-    <button
-      class="cafe-card"
-      type="button"
-      data-cafe="Aarhus – Vestergade"
-    >
-      <strong>Aarhus</strong>
-      <span>Vestergade 58A, 8000</span>
-    </button>
-
-    <button
-      class="cafe-card"
-      type="button"
-      data-cafe="Aalborg"
-    >
-      <strong>Aalborg</strong>
-      <span>Vesterbro 38, 9000</span>
-    </button>
-
-    <button
-      class="cafe-card"
-      type="button"
-      data-cafe="Kolding"
-    >
-      <strong>Kolding</strong>
-      <span>Jernbanegade 11, 6000</span>
-    </button>
-
-  </div>
-
-</section>
-
-
-  <main class="page" id="games-view" hidden>
-
-    <p
-      id="favorite-status"
-      class="visually-hidden"
-      aria-live="polite"
-    ></p>
-    <!-- Søgning og filter -->
-    <div class="search-filter-row">
-
-      <div class="searchbar">
-        <label for="search-input" class="visually-hidden">
-         Søg efter spil
-        </label>
-
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Søg"
-        />
-
-        <span class="search-icon" aria-hidden="true">⌕</span>
+        <p>
+          Hos Spilcaféen kan du samles med venner og familie omkring brætspil,
+          hygge og gode oplevelser. Vælg den café, du besøger, og se hvilke spil
+          du kan finde.
+        </p>
       </div>
 
-      <button
-        id="filter-toggle"
-        class="filter-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="filter-menu"
-      >
-        Filtrer
-        <span aria-hidden="true">⌄</span>
-      </button>
+      <h2>Vælg café</h2>
 
-    </div>
-
-
-    <!-- Valgte filtre kommer til at blive vist her -->
-    <div
-      id="selected-filters"
-      class="selected-filters"
-      aria-live="polite"
-      hidden
-    ></div>
-
-
-    <!-- Hele filtermenuen -->
-    <div id="filter-menu" class="filter-menu" hidden>
-
-      <!-- SPILLERE -->
-      <div class="filter-group">
+      <div class="cafe-grid">
 
         <button
-          class="filter-group-toggle"
+          class="cafe-card"
           type="button"
-          aria-expanded="false"
-          aria-controls="players-options"
+          data-cafe="Aarhus – Fredensgade"
         >
-          Spillere
-          <span aria-hidden="true">⌄</span>
+          <strong>Aarhus</strong>
+          <span>Fredensgade 38, 8000</span>
         </button>
-
-        <div id="players-options" class="filter-options" hidden>
-
-          <label>
-            <span>1–2</span>
-            <input type="checkbox" data-filter="players" value="1-2">
-          </label>
-
-          <label>
-            <span>2–4</span>
-            <input type="checkbox" data-filter="players" value="2-4">
-          </label>
-
-          <label>
-            <span>4–6</span>
-            <input type="checkbox" data-filter="players" value="4-6">
-          </label>
-
-          <label>
-            <span>6–10</span>
-            <input type="checkbox" data-filter="players" value="6-10">
-          </label>
-
-          <label>
-            <span>10+</span>
-            <input type="checkbox" data-filter="players" value="10+">
-          </label>
-
-        </div>
-        </div>
-
-
-      <!-- ALDER -->
-      <div class="filter-group">
 
         <button
-          class="filter-group-toggle"
+          class="cafe-card"
           type="button"
-          aria-expanded="false"
-          aria-controls="age-options"
+          data-cafe="Aarhus – Vestergade"
         >
-          Alder
-          <span aria-hidden="true">⌄</span>
+          <strong>Aarhus</strong>
+          <span>Vestergade 58A, 8000</span>
         </button>
 
-        <div id="age-options" class="filter-options" hidden>
+        <button
+          class="cafe-card"
+          type="button"
+          data-cafe="Aalborg"
+        >
+          <strong>Aalborg</strong>
+          <span>Vesterbro 38, 9000</span>
+        </button>
 
-          <label>
-            <span>3+</span>
-            <input type="checkbox" data-filter="age" value="3">
-          </label>
+        <button
+          class="cafe-card"
+          type="button"
+          data-cafe="Kolding"
+        >
+          <strong>Kolding</strong>
+          <span>Jernbanegade 11, 6000</span>
+        </button>
 
-          <label>
-            <span>6+</span>
-            <input type="checkbox" data-filter="age" value="6">
-          </label>
-
-          <label>
-            <span>8+</span>
-            <input type="checkbox" data-filter="age" value="8">
-          </label>
-
-          <label>
-            <span>10+</span>
-            <input type="checkbox" data-filter="age" value="10">
-          </label>
-
-          <label>
-            <span>12+</span>
-            <input type="checkbox" data-filter="age" value="12">
-          </label>
-
-          <label>
-            <span>15+</span>
-            <input type="checkbox" data-filter="age" value="15">
-          </label>
-
-          <label>
-            <span>18+</span>
-            <input type="checkbox" data-filter="age" value="18">
-          </label>
-
-        </div>
       </div>
 
-
-      <!-- KATEGORI -->
-      <div class="filter-group">
-
-        <button
-          class="filter-group-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="category-options"
-        >
-          Kategori
-          <span aria-hidden="true">⌄</span>
-        </button>
-
-        <div id="category-options" class="filter-options" hidden>
-
-          <label>
-            <span>Familie</span>
-            <input type="checkbox" data-filter="genre" value="Familie">
-          </label>
-
-          <label>
-            <span>Kortspil</span>
-            <input type="checkbox" data-filter="genre" value="Kortspil">
-          </label>
-
-          <label>
-            <span>Strategi</span>
-            <input type="checkbox" data-filter="genre" value="Strategi">
-          </label>
-
-          <label>
-            <span>Ordspil</span>
-            <input type="checkbox" data-filter="genre" value="Ordspil">
-          </label>
-
-          <label>
-            <span>Party</span>
-            <input type="checkbox" data-filter="genre" value="Party">
-          </label>
-
-          <label>
-            <span>Andre</span>
-            <input type="checkbox" data-filter="genre" value="Andre">
-          </label>
-
-        </div>
-      </div>
+    </section>
 
 
-      <!-- VARIGHED -->
-      <div class="filter-group">
+      <section class="page" id="games-view" hidden>
 
-        <button
-          class="filter-group-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="duration-options"
-        >
-          Varighed
-          <span aria-hidden="true">⌄</span>
-        </button>
+          <p
+          id="favorite-status"
+          class="visually-hidden"
+          aria-live="polite"
+         ></p>
+          <!-- Søgning og filter -->
+          <div class="search-filter-row">
 
-        <div id="duration-options" class="filter-options" hidden>
+          <div class="searchbar">
+            <label for="search-input" class="visually-hidden">
+            Søg efter spil
+            </label>
 
-          <label>
-            <span>≤ 15 min</span>
-            <input type="checkbox" data-filter="duration" value="0-15">
-          </label>
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Søg"
+            />
 
-          <label>
-            <span>15–30 min</span>
-            <input type="checkbox" data-filter="duration" value="15-30">
-          </label>
+            <span class="search-icon" aria-hidden="true">⌕</span>
+          </div>
 
-          <label>
-            <span>30–60 min</span>
-            <input type="checkbox" data-filter="duration" value="30-60">
-          </label>
+          <button
+            id="filter-toggle"
+            class="filter-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="filter-menu"
+          >
+            Filtrer
+            <span aria-hidden="true">⌄</span>
+          </button>
 
-          <label>
-            <span>60–120 min</span>
-            <input type="checkbox" data-filter="duration" value="60-120">
-          </label>
+          </div>
 
-          <label>
-            <span>120+ min</span>
-            <input type="checkbox" data-filter="duration" value="120+">
-          </label>
 
-        </div>
-      </div>
+          <!-- Valgte filtre kommer til at blive vist her -->
+          <div
+          id="selected-filters"
+          class="selected-filters"
+          aria-live="polite"
+          hidden
+          ></div>
 
-    </div>
-  
-    
 
-      <!-- Skjult lager til select/inputs som koden bruger (ikke synligt for brugeren) -->
-      <div class="filters-storage" hidden>
-      <label for="sort-select" class="sr-only">Sorter spil</label>
-        <select id="sort-select">
-          <option value="none">Ingen sortering</option>
-          <option value="title">Titel (A-Å)</option>
-          <option value="playtime">Varighed (kortest først)</option>
-          <option value="rating">Rating (højeste først)</option>
-        </select>
+          <!-- Hele filtermenuen -->
+          <div id="filter-menu" class="filter-menu" hidden>
+
+          <!-- SPILLERE -->
+          <div class="filter-group">
+
+            <button
+              class="filter-group-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="players-options"
+            >
+              Spillere
+              <span aria-hidden="true">⌄</span>
+            </button>
+
+            <div id="players-options" class="filter-options" hidden>
+
+              <label>
+                <span>1–2</span>
+                <input type="checkbox" data-filter="players" value="1-2">
+              </label>
+
+              <label>
+                <span>2–4</span>
+                <input type="checkbox" data-filter="players" value="2-4">
+              </label>
+
+              <label>
+                <span>4–6</span>
+                <input type="checkbox" data-filter="players" value="4-6">
+              </label>
+
+              <label>
+                <span>6–10</span>
+                <input type="checkbox" data-filter="players" value="6-10">
+              </label>
+
+              <label>
+                <span>10+</span>
+                <input type="checkbox" data-filter="players" value="10+">
+              </label>
+
+            </div>
+            </div>
+
+
+          <!-- ALDER -->
+          <div class="filter-group">
+
+            <button
+              class="filter-group-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="age-options"
+            >
+              Alder
+              <span aria-hidden="true">⌄</span>
+            </button>
+
+            <div id="age-options" class="filter-options" hidden>
+
+              <label>
+                <span>3+</span>
+                <input type="checkbox" data-filter="age" value="3">
+              </label>
+
+              <label>
+                <span>6+</span>
+                <input type="checkbox" data-filter="age" value="6">
+              </label>
+
+              <label>
+                <span>8+</span>
+                <input type="checkbox" data-filter="age" value="8">
+              </label>
+
+              <label>
+                <span>10+</span>
+                <input type="checkbox" data-filter="age" value="10">
+              </label>
+
+              <label>
+                <span>12+</span>
+                <input type="checkbox" data-filter="age" value="12">
+              </label>
+
+              <label>
+                <span>15+</span>
+                <input type="checkbox" data-filter="age" value="15">
+              </label>
+
+              <label>
+                <span>18+</span>
+                <input type="checkbox" data-filter="age" value="18">
+              </label>
+
+            </div>
+          </div>
+
+
+          <!-- KATEGORI -->
+          <div class="filter-group">
+
+            <button
+              class="filter-group-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="category-options"
+            >
+              Kategori
+              <span aria-hidden="true">⌄</span>
+            </button>
+
+            <div id="category-options" class="filter-options" hidden>
+
+              <label>
+                <span>Familie</span>
+                <input type="checkbox" data-filter="genre" value="Familie">
+              </label>
+
+              <label>
+                <span>Kortspil</span>
+                <input type="checkbox" data-filter="genre" value="Kortspil">
+              </label>
+
+              <label>
+                <span>Strategi</span>
+                <input type="checkbox" data-filter="genre" value="Strategi">
+              </label>
+
+              <label>
+                <span>Ordspil</span>
+                <input type="checkbox" data-filter="genre" value="Ordspil">
+              </label>
+
+              <label>
+                <span>Party</span>
+                <input type="checkbox" data-filter="genre" value="Party">
+              </label>
+
+              <label>
+                <span>Andre</span>
+                <input type="checkbox" data-filter="genre" value="Andre">
+              </label>
+
+            </div>
+          </div>
+
+
+          <!-- VARIGHED -->
+          <div class="filter-group">
+
+            <button
+              class="filter-group-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="duration-options"
+            >
+              Varighed
+              <span aria-hidden="true">⌄</span>
+            </button>
+
+            <div id="duration-options" class="filter-options" hidden>
+
+              <label>
+                <span>≤ 15 min</span>
+                <input type="checkbox" data-filter="duration" value="0-15">
+              </label>
+
+              <label>
+                <span>15–30 min</span>
+                <input type="checkbox" data-filter="duration" value="15-30">
+              </label>
+
+              <label>
+                <span>30–60 min</span>
+                <input type="checkbox" data-filter="duration" value="30-60">
+              </label>
+
+              <label>
+                <span>60–120 min</span>
+                <input type="checkbox" data-filter="duration" value="60-120">
+              </label>
+
+              <label>
+                <span>120+ min</span>
+                <input type="checkbox" data-filter="duration" value="120+">
+              </label>
+
+            </div>
+          </div>
+
+          </div>
       
-        <!-- eksisterende clear-knap er ikke længere synlig, men kan gerne blive -->
-        <button id="clear-filters" type="button">Ryd (skjult)</button>
-      </div>
+        
+
+          <!-- Skjult lager til select/inputs som koden bruger (ikke synligt for brugeren) -->
+          <div class="filters-storage" hidden>
+          <label for="sort-select" class="sr-only">Sorter spil</label>
+            <select id="sort-select">
+              <option value="none">Ingen sortering</option>
+              <option value="title">Titel (A-Å)</option>
+              <option value="playtime">Varighed (kortest først)</option>
+              <option value="rating">Rating (højeste først)</option>
+            </select>
+          
+            <!-- eksisterende clear-knap er ikke længere synlig, men kan gerne blive -->
+            <button id="clear-filters" type="button">Ryd (skjult)</button>
+          </div>
 
 
-      <!-- Grid med spil -->
-      <section id="game-list" class="card-grid"></section>
-    </main>
-
+          <!-- Grid med spil -->
+          <section id="game-list" class="card-grid"></section>
+        </section>
+</main>
 <!-- Modal: stort kort -->
 <div id="game-modal" class="modal" hidden>
   <div class="modal-backdrop" data-close></div>
