@@ -4,25 +4,11 @@
 :root {
   /* Nyt Spilcaféen-tema */
   --cream: #fff8ef;
-
   --brown: #661010;
-  --brown-2: #6f090c;
-
   --text: #501012;
-  --light: #fffaf4;
-
-  --muted: #9c7470;
-
   --ring: #e6c1b9;
-
   --pink: #f2d2ca;
-  --pink-light: #fae9e3;
-
-  --yellow: #ffd34d;
-
   --shadow: 0 6px 18px rgba(91, 17, 17, 0.14);
-
-  --radius: 18px;
   --thumb-ratio: 1 / 1;
 }
 
@@ -43,8 +29,20 @@ body {
   font: 16px/1.4 ui-sans-serif, system-ui, Segoe UI, Roboto, Inter;
 }
 
+.visually-hidden, .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* =========================================================
-  HEADER – mørk topbjælke 
+  HEADER 
   ========================================================= */
 .topbar {
   position: sticky;
@@ -67,18 +65,6 @@ body {
   width: 100%;
   background: var(--brown);
   box-shadow: var(--shadow);
-}
-
-/* Logoet svæver ovenpå bjælken */
-.header-logo {
-  position: absolute;
-  left: 50%;
-  top: 6px;
-  /* sænk/hæv logoet i bjælken */
-  transform: translateX(-50%);
-  height: 96px;
-  /* logo-størrelse */
-  z-index: 10;
 }
 
 /* tilbage-knap i topbaren */
@@ -120,25 +106,6 @@ body {
   white-space: normal;
 }
 
-.logo-home-btn {
-  position: absolute;
-  left: 50%;
-  top: 6px;
-  transform: translateX(-50%);
-  z-index: 10;
-
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.logo-home-btn .header-logo {
-  position: static;
-  transform: none;
-  display: block;
-  height: 96px;
-}
   /* =========================================================
    FORSIDE – VÆLG CAFÉ
 ========================================================= */
@@ -244,67 +211,9 @@ body {
   outline-offset: 3px;
 }
 
-@media (max-width: 600px) {
-  .home-view {
-    padding: 18px 20px 20px;
-  }
-
-  .home-logo {
-    width: 130px;
-    margin: 0 auto 18px;
-  }
-
-  .home-intro {
-    margin-bottom: 18px;
-  }
-
-  .home-intro h1 {
-    font-size: 25px;
-    line-height: 1.15;
-    margin-bottom: 10px;
-  }
-
-  .home-intro p {
-    font-size: 15px;
-    line-height: 1.4;
-    margin: 0 auto;
-  }
-
-  .home-view > h2 {
-    font-size: 23px;
-    margin: 20px 0 14px;
-  }
-
-  .cafe-grid {
-    gap: 10px;
-  }
-
-  .cafe-card {
-    padding: 7px;
-    border-radius: 16px;
-  }
-
-  .cafe-card img {
-    height: 100px;
-    border-radius: 12px;
-    margin-bottom: 7px;
-  }
-
-  .cafe-card strong {
-    font-size: 17px;
-    line-height: 1.1;
-    margin: 0 3px 4px;
-  }
-
-  .cafe-card span {
-    font-size: 12px;
-    line-height: 1.2;
-    margin: 0 3px 5px;
-  }
-}
 
 /* =========================================================
-  SIDE-INDHOLD
+  SPILOVERSIGT – SØGNING OG FILTER
   ========================================================= */
 .page {
   padding: 12px 14px 110px;
@@ -459,17 +368,7 @@ body {
   cursor: pointer;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
+
 
 
 /* =========================================================
@@ -479,11 +378,6 @@ body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
-}
-@media (min-width: 768px) {
-  .card-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  }
 }
 
 .card {
@@ -599,7 +493,6 @@ body {
   right: 0;
   bottom: 0;
   z-index: 8000;
-  /* OVER alt almindeligt indhold/booking */
   background: #efd8c6;
   backdrop-filter: saturate(1.2) blur(6px);
   border-top: 1px solid #efd8ce;
@@ -608,11 +501,10 @@ body {
   align-items: center;
   padding: 8px 8px 6px;
   height: 78px;
-  /* lidt større samlet højde */
 }
 
 
-/* Gør ALLE knapper ens (inkl. huset) */
+/* Generel styling af navigationens knapper */
 .tabbar button {
   appearance: none;
   border: 0;
@@ -625,34 +517,18 @@ body {
   justify-content: center;
   gap: 4px;
   padding: 4px 4px;
-  /* lidt større */
   font-size: 15px;
-  /* større tekst */
   outline: 0;
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.18s ease, background-color 0.18s ease,
     color 0.18s ease, box-shadow 0.18s ease;
   border-radius: 12px;
-  /* rundet baggrund ved hover */
 }
 
 .tabbar[hidden] {
   display: none;
 }
-
-/* Ikon + label */
-.tabbar button span {
-  width: 28px;
-  height: 28px;
-  display: block;
-}
-
-.tabbar button small {
-  display: block;
-  font-size: 12px;
-  line-height: 1.1;
-}
- 
+ /* Ikoner */
 #tab-all img {
   width: 34px;
   height: 34px;
@@ -725,7 +601,7 @@ body {
 
 
 
-/* Konsistent hover/focus på ALLE knapper inkl. huset */
+/* Hover og fokus */
 .tabbar .tab:hover,
 .tabbar .tab:focus-visible,
 .tabbar .tab:active {
@@ -734,13 +610,13 @@ body {
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
 
-/* Tilgængelighed – undgå grimme outlines men behold fokus */
+/* Synlig tastaturfokus */
 .tabbar button:focus-visible {
   outline: 2px solid rgba(59, 33, 24, 0.35);
   outline-offset: 2px;
 }
 
-
+/* Hjem-knap i midten */
 .tabbar .home-fab {
   width: 62px;
   height: 62px;
@@ -768,12 +644,6 @@ body {
 }
 
 .tabbar .home-fab img {
-  width: 62px;
-  height: auto;
-  display: block;
-}
-
-.tabbar .home-fab img {
   width: 78px;
   height: 78px;
   display: block;
@@ -783,12 +653,9 @@ body {
   outline-offset: 3px;
 }
 
-/* Sørg for at modaler fortsat ligger OVER tabbaren */
-.modal {
-  z-index: 9000;
-}
-
-/* FOOTER */
+/* =========================================================
+   FOOTER
+========================================================= */
 .legal {
   text-align: center;
   color: #661010;
@@ -796,7 +663,9 @@ body {
   padding: 10px 0 80px;
 }
 
-/* MODAL (kortdetaljer) */
+/* =========================================================
+   MODAL – SPILDETALJER
+========================================================= */
 .modal[hidden] {
   display: none;
 }
@@ -804,6 +673,7 @@ body {
 .modal {
   position: fixed;
   inset: 0;
+  z-index: 9000;
   display: grid;
   place-items: center;
   padding: 16px;
@@ -844,6 +714,8 @@ body {
   cursor: pointer;
 }
 
+
+/* Billede og indhold */
 .modal-media {
   flex: 0 0 auto;
   background: #1a1a1a7b;
@@ -891,7 +763,7 @@ body {
   opacity: 0.95;
 }
 
-/* Regler fold-ud */
+/* Regler fold ud og ind  */
 .rules-btn {
   background: none;
   border: none;
@@ -938,7 +810,7 @@ body {
 }
 
 /* =========================================================
-  BOOKING FLOW (forkortet; bevaret funktionelt)
+  BOOKING
   ========================================================= */
 .booking[hidden] {
   display: none;
@@ -946,31 +818,15 @@ body {
 
 .booking {
   position: relative;
-  /* sikrer normal stacking under tabbar */
   max-width: clamp(600px, 90vw, 1100px);
   margin: 0 auto;
   padding: 20px 16px 120px;
-  /* bund-padding så tabbar ikke dækker */
-}
-
-.booking-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
 }
 
 .booking-logo {
   height: 56px;
   display: block;
   margin: 10px auto 8px;
-}
-
-@media (min-width: 900px) {
-  .booking-logo {
-    height: 80px;
-    margin: 14px auto 10px;
-  }
 }
 
 .booking-title {
@@ -981,10 +837,7 @@ body {
   color: #3b2118;
 }
 
-.booking-stage {
-  display: block;
-}
-
+/* Valg af café */
 .booking-grid {
   display: grid;
   gap: 16px;
@@ -1011,75 +864,13 @@ body {
   border-radius: 10px;
   display: block;
 }
-@media (max-width: 600px) {
-  .booking-stage {
-    padding: 20px 16px 100px;
-  }
-
-  .booking-logo {
-    width: 65px;
-    height: auto;
-    margin: 0 auto 10px;
-  }
-
-  .booking-title {
-    font-size: 26px;
-    margin: 8px 0 18px;
-  }
-
-  .booking-cafes {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-  }
-
-  .booking-cafes .booking-card {
-    height: auto;
-    min-height: 0;
-    padding: 8px;
-    border-radius: 16px;
-  }
-
-  .booking-cafes .booking-card img {
-    height: 105px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-  }
-
-  .booking-cafes .booking-card h4 {
-    font-size: 17px;
-    line-height: 1.15;
-    margin: 0 3px 5px;
-  }
-
-  .booking-cafes .booking-card p {
-    font-size: 13px;
-    line-height: 1.2;
-    margin: 0 3px 5px;
-  }
-}
-
-@media (min-width: 900px) {
-  .booking-cafes {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .booking-card img {
-    height: 150px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .booking-cafes {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
 
 .booking-bubbles {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
-/* --- BOOKING – Kalender (runde dag-bobler) --- */
+/* Kalender */
 .cal-header {
   display: flex;
   align-items: center;
@@ -1128,15 +919,6 @@ body {
   background: #f2e4d8;
   transform: scale(1.06);
 }
-.cal-cell.selected {
-  background: #7b5647;
-  color: #fff;
-}
-.cal-cell.busy {
-  background: #c27474;
-  color: #fff;
-  cursor: not-allowed;
-}
 
 .legend {
   margin-top: 10px;
@@ -1177,11 +959,6 @@ body {
   gap: 12px;
 }
 
-@media (min-width: 900px) {
-  .booking-time {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
 
 .slot {
   padding: 10px 12px;
@@ -1258,15 +1035,148 @@ body {
   color: #3b2118;
 }
 
+/* =========================================================
+   10. RESPONSIVT DESIGN
+========================================================= */
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+@media (max-width: 600px) {
+  .home-view {
+    padding: 18px 20px 20px;
+  }
+
+  .home-logo {
+    width: 130px;
+    margin: 0 auto 18px;
+  }
+
+  .home-intro {
+    margin-bottom: 18px;
+  }
+
+  .home-intro h1 {
+    font-size: 25px;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .home-intro p {
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 0 auto;
+  }
+
+  .home-view > h2 {
+    font-size: 23px;
+    margin: 20px 0 14px;
+  }
+
+  .cafe-grid {
+    gap: 10px;
+  }
+
+  .cafe-card {
+    padding: 7px;
+    border-radius: 16px;
+  }
+
+  .cafe-card img {
+    height: 100px;
+    border-radius: 12px;
+    margin-bottom: 7px;
+  }
+
+  .cafe-card strong {
+    font-size: 17px;
+    line-height: 1.1;
+    margin: 0 3px 4px;
+  }
+
+  .cafe-card span {
+    font-size: 12px;
+    line-height: 1.2;
+    margin: 0 3px 5px;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+
+@media (min-width: 900px) {
+  .booking-logo {
+    height: 80px;
+    margin: 14px auto 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .booking-stage {
+    padding: 20px 16px 100px;
+  }
+
+  .booking-logo {
+    width: 65px;
+    height: auto;
+    margin: 0 auto 10px;
+  }
+
+  .booking-title {
+    font-size: 26px;
+    margin: 8px 0 18px;
+  }
+
+  .booking-cafes {
+    gap: 10px;
+  }
+
+  .booking-cafes .booking-card {
+    height: auto;
+    min-height: 0;
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .booking-cafes .booking-card img {
+    height: 105px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+
+  .booking-cafes .booking-card h4 {
+    font-size: 17px;
+    line-height: 1.15;
+    margin: 0 3px 5px;
+  }
+
+  .booking-cafes .booking-card p {
+    font-size: 13px;
+    line-height: 1.2;
+    margin: 0 3px 5px;
+  }
+}
+
+@media (min-width: 900px) {
+  .booking-cafes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .booking-card img {
+    height: 150px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .booking-cafes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .booking-time {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
